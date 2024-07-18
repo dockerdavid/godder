@@ -34,7 +34,6 @@ type Databases struct {
 	Port     int    `yaml:"port"`
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
-	Database string `yaml:"database"`
 }
 
 type Email struct {
