@@ -63,8 +63,8 @@ After=network.target
 Type=simple
 Restart=always
 RestartSec=5
-WorkingDirectory=/home/$USER/godder
-ExecStart=/home/$USER/godder/godder -start
+WorkingDirectory=/opt/godder
+ExecStart=/opt/godder/godder -start
 
 [Install]
 WantedBy=multi-user.target
