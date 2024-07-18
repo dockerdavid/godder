@@ -1,0 +1,14 @@
+godder:
+  disk:
+    disk_unit: GB # GB
+    alert_threshold: 1
+  sql:
+    query_unit: ms # ms or s
+    databases:
+      - name: my_database
+        type: mysql
+        host: localhost
+        port: 3306
+        user: root
+        password: root
+        slow_query_time: 100
