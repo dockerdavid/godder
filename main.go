@@ -54,12 +54,22 @@ func installService() {
 		log.Fatal(err)
 	}
 
-	godderServiceData, err := os.ReadFile(godderService)
-	if err != nil {
-		log.Fatal(err)
-	}
+	godderServiceData := `[Unit]
+Description=Godder Service
+Wants=network.target
+After=network.target
 
-	_, err = godderServiceFile.Write(godderServiceData)
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+WorkingDirectory=/home/$USER/godder
+ExecStart=/home/$USER/godder/godder -start
+
+[Install]
+WantedBy=multi-user.target
+`
+	_, err = godderServiceFile.Write([]byte(godderServiceData))
 	if err != nil {
 		log.Fatal(err)
 	}
