@@ -3,6 +3,7 @@ package disk
 import (
 	"fmt"
 	"godder/internal/config"
+	"godder/internal/email"
 	"godder/shared"
 	"syscall"
 )
@@ -12,17 +13,16 @@ type DiskUsage struct {
 	IsLow bool
 }
 
-func CheckDiskUsage() (DiskUsage, error) {
+func CheckDiskUsage() {
 	fs := syscall.Statfs_t{}
 	err := syscall.Statfs("/", &fs)
 	if err != nil {
-		return DiskUsage{}, err
+		return
 	}
 
 	var Free = fs.Bfree * uint64(fs.Bsize)
 
-	return DiskUsage{
-		Free:  fmt.Sprintf("%.2f GB", float64(Free)/float64(shared.GB)),
-		IsLow: Free < uint64(config.Config.Godder.Disk.AlertThreshold)*shared.GB,
-	}, nil
+	if Free < uint64(config.Config.Godder.Disk.AlertThreshold)*shared.GB {
+		email.SendMail(fmt.Sprintf("Disk space is low: %.2f GB", float64(Free)/float64(shared.GB)))
+	}
 }
