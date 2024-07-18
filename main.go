@@ -22,6 +22,7 @@ const (
 	cmd1 = "systemctl"
 	cmd2 = "enable"
 	cmd3 = "godder.service"
+	cmd4 = "start"
 )
 
 func init() {
@@ -84,8 +85,16 @@ WantedBy=multi-user.target
 		log.Fatal(err)
 	}
 
-	cmd := exec.Command(cmd1, cmd2, cmd3)
-	stdout, err := cmd.CombinedOutput()
+	cmd_enable := exec.Command(cmd1, cmd2, cmd3)
+	stdout, err := cmd_enable.CombinedOutput()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println(string(stdout))
+
+	cmd_start := exec.Command(cmd1, cmd4, cmd3)
+	stdout, err = cmd_start.CombinedOutput()
 	if err != nil {
 		log.Fatal(err)
 	}
