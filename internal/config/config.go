@@ -62,11 +62,14 @@ func LoadYmlConfig() error {
 	defer file.Close()
 
 	decoder := yaml.NewDecoder(file)
+
 	err = decoder.Decode(config)
+
 	if err != nil {
 		return err
 	}
 
 	Config = config
+
 	return nil
 }
