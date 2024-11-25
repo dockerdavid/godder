@@ -11,6 +11,8 @@ import (
 
 type DatabaseStats struct {
 	Name     string
+	Host     string
+	Port     int
 	Database *sql.DB
 }
 
@@ -37,6 +39,8 @@ func ConnectDatabases() {
 
 		Databases = append(Databases, DatabaseStats{
 			Name:     database.Name,
+			Host:     database.Host,
+			Port:     database.Port,
 			Database: db,
 		})
 	}

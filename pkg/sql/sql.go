@@ -69,7 +69,7 @@ func setSlowQueries(databaseStats database.DatabaseStats) {
 
 	for id, slowQuery := range slowQueries {
 		if slowQuery.Time > config.Config.Godder.SQL.SlowQueryTime && !slowQuery.SendedMail {
-			email.SendMail(fmt.Sprintf("Slow query detected: %s, DB alias: %s", slowQuery.Info, databaseStats.Name))
+			email.SendMail(fmt.Sprintf("Slow query detected: %s, Host: %s, Port: %d, DB alias: %s", slowQuery.Info, databaseStats.Host, databaseStats.Port, databaseStats.Name))
 
 			slowQuery.SendedMail = true
 			slowQuery.UnixTime = time.Now().Unix()

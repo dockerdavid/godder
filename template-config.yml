@@ -11,10 +11,9 @@ godder:
     alert_threshold: 1
   sql:
     query_unit: s
-    slow_query_time: 100
+    slow_query_time: 180
     databases:
       - name:
-        type:
         host:
         port:
         user:

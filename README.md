@@ -4,20 +4,6 @@
 Servicio para revisar el disco y consultas lentas
 
 ## Paso 1
-### Crear la carpeta desde donde se va a llamar el archivo
-```bash
-cd /opt
-mkdir godder
-cd godder
-```
-
-## Paso 2
-### Clonar el release
-```bash
-wget https://github.com/dockerdavid/godder/releases/download/${RELEASE_VERSION}/${RELEASE_TAG}
-```
-
-## Paso 3
 ### Crear archivo de configuración, debe llamarse ```config.yml```, hay un archivo de ejemplo llamado ```template-config.yml```
 ```bash
 godder:
@@ -28,30 +14,22 @@ godder:
     password: password
     to: email@example.com
   disk:
+    name: my-server
     disk_unit: GB
     alert_threshold: 1
   sql:
     query_unit: s
-    slow_query_time: 100
+    slow_query_time: 180
     databases:
       - name: test
-        type: test
         host: test
         port: test
         user: test
         password: test
-        slow_query_time: 10
-
-```
-
-## Paso 4
-### Ejecutar la instalación
-```bash
-./godder -install
-```
-
-## Paso 5
-### Verificar la instalación
-```bash
-systemctl status godder.service
+      - name: test2
+        host: test2
+        port: test2
+        user: test2
+        password: test2
+      ...
 ```
