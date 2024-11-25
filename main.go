@@ -23,7 +23,7 @@ func init() {
 func main() {
 	c := cron.New()
 
-	c.AddFunc("@every 30s", func() {
+	c.AddFunc("@every 15s", func() {
 		disk.CheckDiskUsage()
 		sql.CheckSlowQueries()
 	})

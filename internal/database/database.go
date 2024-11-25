@@ -39,6 +39,5 @@ func ConnectDatabases() {
 			Name:     database.Name,
 			Database: db,
 		})
-
 	}
 }

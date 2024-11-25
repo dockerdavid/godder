@@ -17,6 +17,7 @@ type Godder struct {
 }
 
 type Disk struct {
+	Name           string `yaml:"name"`
 	DiskUnit       string `yaml:"disk_unit"`
 	AlertThreshold int    `yaml:"alert_threshold"`
 }

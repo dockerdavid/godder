@@ -23,6 +23,6 @@ func CheckDiskUsage() {
 	var Free = fs.Bfree * uint64(fs.Bsize)
 
 	if Free < uint64(config.Config.Godder.Disk.AlertThreshold)*shared.GB {
-		email.SendMail(fmt.Sprintf("Disk space is low: %.2f GB", float64(Free)/float64(shared.GB)))
+		email.SendMail(fmt.Sprintf("Disk space is low: %.2f GB. Server name: %s", float64(Free)/float64(shared.GB), config.Config.Godder.Disk.Name))
 	}
 }

@@ -6,6 +6,7 @@ godder:
     password:
     to:
   disk:
+    name: my-server
     disk_unit: GB
     alert_threshold: 1
   sql:

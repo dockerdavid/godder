@@ -35,16 +35,19 @@ func CheckSlowQueries() {
 	}
 }
 
-func setSlowQueries(db *sql.DB) {
-	rows, err := db.Query("SELECT ID, COMMAND, TIME, INFO FROM INFORMATION_SCHEMA.PROCESSLIST")
+func setSlowQueries(databaseStats database.DatabaseStats) {
+	rows, err := databaseStats.Database.Query("SELECT ID, COMMAND, TIME, INFO FROM INFORMATION_SCHEMA.PROCESSLIST")
+
 	if err != nil {
 		log.Fatal("Error executing query:", err)
 	}
+
 	defer rows.Close()
 
 	for rows.Next() {
 		var row RowDataPacket
 		err := rows.Scan(&row.Id, &row.Command, &row.Time, &row.Info)
+
 		if err != nil {
 			continue
 		}
@@ -66,7 +69,8 @@ func setSlowQueries(db *sql.DB) {
 
 	for id, slowQuery := range slowQueries {
 		if slowQuery.Time > config.Config.Godder.SQL.SlowQueryTime && !slowQuery.SendedMail {
-			email.SendMail(fmt.Sprintf("Slow query detected: %s", slowQuery.Info))
+			email.SendMail(fmt.Sprintf("Slow query detected: %s, DB alias: %s", slowQuery.Info, databaseStats.Name))
+
 			slowQuery.SendedMail = true
 			slowQuery.UnixTime = time.Now().Unix()
 			slowQueries[id] = slowQuery
